@@ -10,23 +10,26 @@ from pwn import *
 def start(argv=[], *a, **kw):
 '''Start the exploit against the target.'''
 if args.GDB: # Set GDBscript below
-return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
+    return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
 elif args.REMOTE: # ('server', 'port')
-return remote(sys.argv[1], sys.argv[2], *a, **kw)
+    return remote(sys.argv[1], sys.argv[2], *a, **kw)
 else: # Run locally
-return process([exe] + argv, *a, **kw)
+    return process([exe] + argv, *a, **kw)
+
 # Specify your GDB script here for debugging
 # GDB will be launched if the exploit is run via e.g.
 # ./exploit.py GDB
 gdbscript = '''
 continue
 '''.format(**locals())
+
 # Set up path
 exe = './path/to/binary'
 # This will automatically get context arch, bits, os etc
 elf = context.binary = ELF(exe, checksec=False)
 # Enable verbose logging so we can see exactly what is being sent (info/debug)
 context.log_level = 'debug'
+
 #===========================================================
 # EXPLOIT GOES HERE
 #===========================================================
