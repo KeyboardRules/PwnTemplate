@@ -27,6 +27,7 @@ continue
 exe = './path/to/binary'
 # This will automatically get context arch, bits, os etc
 elf = context.binary = ELF(exe, checksec=False)
+rop = ROP(elf)
 # Enable verbose logging so we can see exactly what is being sent (info/debug)
 context.log_level = 'debug'
 
